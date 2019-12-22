@@ -20,7 +20,7 @@ package v1alpha1
 import (
 	"time"
 
-	v1alpha1 "github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1"
+	v1alpha1 "github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1"
 	scheme "github.com/argoproj/argo-events/pkg/client/eventsources/clientset/versioned/scheme"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"

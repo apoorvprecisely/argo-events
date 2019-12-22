@@ -20,7 +20,7 @@ package v1alpha1
 import (
 	time "time"
 
-	eventsourcesv1alpha1 "github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1"
+	eventsourcesv1alpha1 "github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1"
 	versioned "github.com/argoproj/argo-events/pkg/client/eventsources/clientset/versioned"
 	internalinterfaces "github.com/argoproj/argo-events/pkg/client/eventsources/informers/externalversions/internalinterfaces"
 	v1alpha1 "github.com/argoproj/argo-events/pkg/client/eventsources/listers/eventsources/v1alpha1"

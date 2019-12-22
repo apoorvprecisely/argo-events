@@ -18,6 +18,15 @@ package sensor
 
 import "github.com/argoproj/argo-events/pkg/apis/sensor"
 
+// EventType is the type of sensor resource change event
+type EventType string
+
+// Possible values for EventType
+const (
+	UpdateEvent EventType = "UPDATE"
+	DeleteEvent EventType = "DELETE"
+)
+
 // Labels
 const (
 	//LabelControllerInstanceID is the label which allows to separate application among multiple running controllers.

@@ -18,17 +18,16 @@ package main
 
 import (
 	"context"
-	"fmt"
+	subscriptionClientset "github.com/argoproj/argo-events/pkg/client/subscription/clientset/versioned"
 	"os"
 
 	"github.com/argoproj/argo-events/common"
 	"github.com/argoproj/argo-events/gateways"
-	pc "github.com/argoproj/argo-events/pkg/apis/common"
 	"github.com/argoproj/argo-events/pkg/apis/gateway/v1alpha1"
+	subscriptionv1alpha1 "github.com/argoproj/argo-events/pkg/apis/subscription/v1alpha1"
 	eventsourceClientset "github.com/argoproj/argo-events/pkg/client/eventsources/clientset/versioned"
 	gwclientset "github.com/argoproj/argo-events/pkg/client/gateway/clientset/versioned"
-	"github.com/nats-io/go-nats"
-	snats "github.com/nats-io/go-nats-streaming"
+	"github.com/cloudevents/sdk-go/pkg/cloudevents/client"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -43,8 +42,10 @@ type GatewayContext struct {
 	k8sClient kubernetes.Interface
 	// eventSourceRef refers to event-source for the gateway
 	eventSourceRef *v1alpha1.EventSourceRef
-	// eventSourceClient is the client for EventSourceRef resource
+	// eventSourceClient is the client for EventSource resource
 	eventSourceClient eventsourceClientset.Interface
+	// subscriptionClient is the client for the Subscription resource
+	subscriptionClient subscriptionClientset.Interface
 	// name of the gateway
 	name string
 	// namespace where gateway is deployed
@@ -63,12 +64,14 @@ type GatewayContext struct {
 	controllerInstanceID string
 	// statusCh is used to communicate the status of an event source
 	statusCh chan EventSourceStatus
-	// natsConn is the standard nats connection used to publish events to cluster. Only used if dispatch protocol is NATS
-	natsConn *nats.Conn
-	// natsStreamingConn is the nats connection used for streaming.
-	natsStreamingConn snats.Conn
-	// sensorHttpPort is the http server running in sensor that listens to event. Only used if dispatch protocol is HTTP
-	sensorHttpPort string
+	// List of subscriptions over http
+	httpSubscriptions []subscriptionv1alpha1.HTTPSubscription
+	// mao of clients for http subscriptions
+	httpClients map[string]client.Client
+	// List of subscriptions over nats
+	natsSubscriptions []subscriptionv1alpha1.NATSSubscription
+	// mao of clients for nats subscriptions
+	natsClients map[string]client.Client
 }
 
 // EventSourceContext contains information of a event source for gateway to run.
@@ -135,24 +138,6 @@ func NewGatewayContext() *GatewayContext {
 		controllerInstanceID: controllerInstanceID,
 		serverPort:           serverPort,
 		statusCh:             make(chan EventSourceStatus),
-	}
-
-	switch gateway.Spec.EventProtocol.Type {
-	case pc.HTTP:
-		gatewayConfig.sensorHttpPort = gateway.Spec.EventProtocol.Http.Port
-	case pc.NATS:
-		if gatewayConfig.natsConn, err = nats.Connect(gateway.Spec.EventProtocol.Nats.URL); err != nil {
-			panic(fmt.Errorf("failed to obtain NATS standard connection. err: %+v", err))
-		}
-		gatewayConfig.logger.WithField(common.LabelURL, gateway.Spec.EventProtocol.Nats.URL).Infoln("connected to nats service")
-
-		if gatewayConfig.gateway.Spec.EventProtocol.Nats.Type == pc.Streaming {
-			gatewayConfig.natsStreamingConn, err = snats.Connect(gatewayConfig.gateway.Spec.EventProtocol.Nats.ClusterId, gatewayConfig.gateway.Spec.EventProtocol.Nats.ClientId, snats.NatsConn(gatewayConfig.natsConn))
-			if err != nil {
-				panic(fmt.Errorf("failed to obtain NATS streaming connection. err: %+v", err))
-			}
-			gatewayConfig.logger.WithField(common.LabelURL, gateway.Spec.EventProtocol.Nats.URL).Infoln("nats streaming connection successful")
-		}
 	}
 	return gatewayConfig
 }

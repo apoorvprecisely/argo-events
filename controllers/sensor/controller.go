@@ -27,6 +27,7 @@ import (
 	"github.com/argoproj/argo-events/pkg/apis/sensor"
 	"github.com/argoproj/argo-events/pkg/apis/sensor/v1alpha1"
 	clientset "github.com/argoproj/argo-events/pkg/client/sensor/clientset/versioned"
+	subclient "github.com/argoproj/argo-events/pkg/client/subscription/clientset/versioned"
 	"github.com/sirupsen/logrus"
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/client-go/kubernetes"
@@ -67,6 +68,8 @@ type Controller struct {
 	k8sClient kubernetes.Interface
 	// sensorClient is the client for operations on the sensor custom resource
 	sensorClient clientset.Interface
+	// subscriptionClient is the client for operations on the subscription custom resource
+	subscriptionClient subclient.Interface
 	// informer for sensor resource updates
 	informer cache.SharedIndexInformer
 	// queue to process watched sensor resources
@@ -77,13 +80,14 @@ type Controller struct {
 func NewController(rest *rest.Config, configMap, namespace string) *Controller {
 	rateLimiter := workqueue.NewItemExponentialFailureRateLimiter(rateLimiterBaseDelay, rateLimiterMaxDelay)
 	return &Controller{
-		ConfigMap:    configMap,
-		Namespace:    namespace,
-		kubeConfig:   rest,
-		k8sClient:    kubernetes.NewForConfigOrDie(rest),
-		sensorClient: clientset.NewForConfigOrDie(rest),
-		queue:        workqueue.NewRateLimitingQueue(rateLimiter),
-		logger:       common.NewArgoEventsLogger(),
+		ConfigMap:          configMap,
+		Namespace:          namespace,
+		kubeConfig:         rest,
+		k8sClient:          kubernetes.NewForConfigOrDie(rest),
+		sensorClient:       clientset.NewForConfigOrDie(rest),
+		subscriptionClient: subclient.NewForConfigOrDie(rest),
+		queue:              workqueue.NewRateLimitingQueue(rateLimiter),
+		logger:             common.NewArgoEventsLogger(),
 	}
 }
 

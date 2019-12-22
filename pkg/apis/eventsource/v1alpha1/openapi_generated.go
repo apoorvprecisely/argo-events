@@ -28,31 +28,31 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
-		"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.AMQPEventSource":        schema_pkg_apis_eventsources_v1alpha1_AMQPEventSource(ref),
-		"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.CalendarEventSource":    schema_pkg_apis_eventsources_v1alpha1_CalendarEventSource(ref),
-		"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.EventSource":            schema_pkg_apis_eventsources_v1alpha1_EventSource(ref),
-		"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.EventSourceList":        schema_pkg_apis_eventsources_v1alpha1_EventSourceList(ref),
-		"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.EventSourceSpec":        schema_pkg_apis_eventsources_v1alpha1_EventSourceSpec(ref),
-		"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.EventSourceStatus":      schema_pkg_apis_eventsources_v1alpha1_EventSourceStatus(ref),
-		"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.FileEventSource":        schema_pkg_apis_eventsources_v1alpha1_FileEventSource(ref),
-		"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.GithubEventSource":      schema_pkg_apis_eventsources_v1alpha1_GithubEventSource(ref),
-		"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.GitlabEventSource":      schema_pkg_apis_eventsources_v1alpha1_GitlabEventSource(ref),
-		"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.HDFSEventSource":        schema_pkg_apis_eventsources_v1alpha1_HDFSEventSource(ref),
-		"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.KafkaEventSource":       schema_pkg_apis_eventsources_v1alpha1_KafkaEventSource(ref),
-		"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.MQTTEventSource":        schema_pkg_apis_eventsources_v1alpha1_MQTTEventSource(ref),
-		"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.NATSEventsSource":       schema_pkg_apis_eventsources_v1alpha1_NATSEventsSource(ref),
-		"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.PubSubEventSource":      schema_pkg_apis_eventsources_v1alpha1_PubSubEventSource(ref),
-		"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.ResourceEventSource":    schema_pkg_apis_eventsources_v1alpha1_ResourceEventSource(ref),
-		"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.ResourceFilter":         schema_pkg_apis_eventsources_v1alpha1_ResourceFilter(ref),
-		"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.SNSEventSource":         schema_pkg_apis_eventsources_v1alpha1_SNSEventSource(ref),
-		"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.SQSEventSource":         schema_pkg_apis_eventsources_v1alpha1_SQSEventSource(ref),
-		"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.SlackEventSource":       schema_pkg_apis_eventsources_v1alpha1_SlackEventSource(ref),
-		"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.StorageGridEventSource": schema_pkg_apis_eventsources_v1alpha1_StorageGridEventSource(ref),
-		"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.StorageGridFilter":      schema_pkg_apis_eventsources_v1alpha1_StorageGridFilter(ref),
+		"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.AMQPEventSource":        schema_pkg_apis_eventsource_v1alpha1_AMQPEventSource(ref),
+		"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.CalendarEventSource":    schema_pkg_apis_eventsource_v1alpha1_CalendarEventSource(ref),
+		"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.EventSource":            schema_pkg_apis_eventsource_v1alpha1_EventSource(ref),
+		"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.EventSourceList":        schema_pkg_apis_eventsource_v1alpha1_EventSourceList(ref),
+		"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.EventSourceSpec":        schema_pkg_apis_eventsource_v1alpha1_EventSourceSpec(ref),
+		"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.EventSourceStatus":      schema_pkg_apis_eventsource_v1alpha1_EventSourceStatus(ref),
+		"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.FileEventSource":        schema_pkg_apis_eventsource_v1alpha1_FileEventSource(ref),
+		"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.GithubEventSource":      schema_pkg_apis_eventsource_v1alpha1_GithubEventSource(ref),
+		"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.GitlabEventSource":      schema_pkg_apis_eventsource_v1alpha1_GitlabEventSource(ref),
+		"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.HDFSEventSource":        schema_pkg_apis_eventsource_v1alpha1_HDFSEventSource(ref),
+		"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.KafkaEventSource":       schema_pkg_apis_eventsource_v1alpha1_KafkaEventSource(ref),
+		"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.MQTTEventSource":        schema_pkg_apis_eventsource_v1alpha1_MQTTEventSource(ref),
+		"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.NATSEventsSource":       schema_pkg_apis_eventsource_v1alpha1_NATSEventsSource(ref),
+		"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.PubSubEventSource":      schema_pkg_apis_eventsource_v1alpha1_PubSubEventSource(ref),
+		"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.ResourceEventSource":    schema_pkg_apis_eventsource_v1alpha1_ResourceEventSource(ref),
+		"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.ResourceFilter":         schema_pkg_apis_eventsource_v1alpha1_ResourceFilter(ref),
+		"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.SNSEventSource":         schema_pkg_apis_eventsource_v1alpha1_SNSEventSource(ref),
+		"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.SQSEventSource":         schema_pkg_apis_eventsource_v1alpha1_SQSEventSource(ref),
+		"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.SlackEventSource":       schema_pkg_apis_eventsource_v1alpha1_SlackEventSource(ref),
+		"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.StorageGridEventSource": schema_pkg_apis_eventsource_v1alpha1_StorageGridEventSource(ref),
+		"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.StorageGridFilter":      schema_pkg_apis_eventsource_v1alpha1_StorageGridFilter(ref),
 	}
 }
 
-func schema_pkg_apis_eventsources_v1alpha1_AMQPEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_eventsource_v1alpha1_AMQPEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -102,7 +102,7 @@ func schema_pkg_apis_eventsources_v1alpha1_AMQPEventSource(ref common.ReferenceC
 	}
 }
 
-func schema_pkg_apis_eventsources_v1alpha1_CalendarEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_eventsource_v1alpha1_CalendarEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -163,7 +163,7 @@ func schema_pkg_apis_eventsources_v1alpha1_CalendarEventSource(ref common.Refere
 	}
 }
 
-func schema_pkg_apis_eventsources_v1alpha1_EventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_eventsource_v1alpha1_EventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -191,12 +191,12 @@ func schema_pkg_apis_eventsources_v1alpha1_EventSource(ref common.ReferenceCallb
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.EventSourceStatus"),
+							Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.EventSourceStatus"),
 						},
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.EventSourceSpec"),
+							Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.EventSourceSpec"),
 						},
 					},
 				},
@@ -204,11 +204,11 @@ func schema_pkg_apis_eventsources_v1alpha1_EventSource(ref common.ReferenceCallb
 			},
 		},
 		Dependencies: []string{
-			"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.EventSourceSpec", "github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.EventSourceStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.EventSourceSpec", "github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.EventSourceStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_pkg_apis_eventsources_v1alpha1_EventSourceList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_eventsource_v1alpha1_EventSourceList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -245,7 +245,7 @@ func schema_pkg_apis_eventsources_v1alpha1_EventSourceList(ref common.ReferenceC
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.EventSource"),
+										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.EventSource"),
 									},
 								},
 							},
@@ -256,11 +256,11 @@ func schema_pkg_apis_eventsources_v1alpha1_EventSourceList(ref common.ReferenceC
 			},
 		},
 		Dependencies: []string{
-			"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.EventSource", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.EventSource", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
-func schema_pkg_apis_eventsources_v1alpha1_EventSourceSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_eventsource_v1alpha1_EventSourceSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -289,7 +289,7 @@ func schema_pkg_apis_eventsources_v1alpha1_EventSourceSpec(ref common.ReferenceC
 								Allows: true,
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.CalendarEventSource"),
+										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.CalendarEventSource"),
 									},
 								},
 							},
@@ -303,7 +303,7 @@ func schema_pkg_apis_eventsources_v1alpha1_EventSourceSpec(ref common.ReferenceC
 								Allows: true,
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.FileEventSource"),
+										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.FileEventSource"),
 									},
 								},
 							},
@@ -317,7 +317,7 @@ func schema_pkg_apis_eventsources_v1alpha1_EventSourceSpec(ref common.ReferenceC
 								Allows: true,
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.ResourceEventSource"),
+										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.ResourceEventSource"),
 									},
 								},
 							},
@@ -345,7 +345,7 @@ func schema_pkg_apis_eventsources_v1alpha1_EventSourceSpec(ref common.ReferenceC
 								Allows: true,
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.AMQPEventSource"),
+										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.AMQPEventSource"),
 									},
 								},
 							},
@@ -359,7 +359,7 @@ func schema_pkg_apis_eventsources_v1alpha1_EventSourceSpec(ref common.ReferenceC
 								Allows: true,
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.KafkaEventSource"),
+										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.KafkaEventSource"),
 									},
 								},
 							},
@@ -373,7 +373,7 @@ func schema_pkg_apis_eventsources_v1alpha1_EventSourceSpec(ref common.ReferenceC
 								Allows: true,
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.MQTTEventSource"),
+										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.MQTTEventSource"),
 									},
 								},
 							},
@@ -387,7 +387,7 @@ func schema_pkg_apis_eventsources_v1alpha1_EventSourceSpec(ref common.ReferenceC
 								Allows: true,
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.NATSEventsSource"),
+										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.NATSEventsSource"),
 									},
 								},
 							},
@@ -401,7 +401,7 @@ func schema_pkg_apis_eventsources_v1alpha1_EventSourceSpec(ref common.ReferenceC
 								Allows: true,
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.SNSEventSource"),
+										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.SNSEventSource"),
 									},
 								},
 							},
@@ -415,7 +415,7 @@ func schema_pkg_apis_eventsources_v1alpha1_EventSourceSpec(ref common.ReferenceC
 								Allows: true,
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.SQSEventSource"),
+										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.SQSEventSource"),
 									},
 								},
 							},
@@ -429,7 +429,7 @@ func schema_pkg_apis_eventsources_v1alpha1_EventSourceSpec(ref common.ReferenceC
 								Allows: true,
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.PubSubEventSource"),
+										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.PubSubEventSource"),
 									},
 								},
 							},
@@ -443,7 +443,7 @@ func schema_pkg_apis_eventsources_v1alpha1_EventSourceSpec(ref common.ReferenceC
 								Allows: true,
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.GithubEventSource"),
+										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.GithubEventSource"),
 									},
 								},
 							},
@@ -457,7 +457,7 @@ func schema_pkg_apis_eventsources_v1alpha1_EventSourceSpec(ref common.ReferenceC
 								Allows: true,
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.GitlabEventSource"),
+										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.GitlabEventSource"),
 									},
 								},
 							},
@@ -471,7 +471,7 @@ func schema_pkg_apis_eventsources_v1alpha1_EventSourceSpec(ref common.ReferenceC
 								Allows: true,
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.HDFSEventSource"),
+										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.HDFSEventSource"),
 									},
 								},
 							},
@@ -485,7 +485,7 @@ func schema_pkg_apis_eventsources_v1alpha1_EventSourceSpec(ref common.ReferenceC
 								Allows: true,
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.SlackEventSource"),
+										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.SlackEventSource"),
 									},
 								},
 							},
@@ -499,7 +499,7 @@ func schema_pkg_apis_eventsources_v1alpha1_EventSourceSpec(ref common.ReferenceC
 								Allows: true,
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.StorageGridEventSource"),
+										Ref: ref("github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.StorageGridEventSource"),
 									},
 								},
 							},
@@ -517,11 +517,11 @@ func schema_pkg_apis_eventsources_v1alpha1_EventSourceSpec(ref common.ReferenceC
 			},
 		},
 		Dependencies: []string{
-			"github.com/argoproj/argo-events/gateways/server/common/webhook.Context", "github.com/argoproj/argo-events/pkg/apis/common.S3Artifact", "github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.AMQPEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.CalendarEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.FileEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.GithubEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.GitlabEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.HDFSEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.KafkaEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.MQTTEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.NATSEventsSource", "github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.PubSubEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.ResourceEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.SNSEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.SQSEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.SlackEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.StorageGridEventSource"},
+			"github.com/argoproj/argo-events/gateways/server/common/webhook.Context", "github.com/argoproj/argo-events/pkg/apis/common.S3Artifact", "github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.AMQPEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.CalendarEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.FileEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.GithubEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.GitlabEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.HDFSEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.KafkaEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.MQTTEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.NATSEventsSource", "github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.PubSubEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.ResourceEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.SNSEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.SQSEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.SlackEventSource", "github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.StorageGridEventSource"},
 	}
 }
 
-func schema_pkg_apis_eventsources_v1alpha1_EventSourceStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_eventsource_v1alpha1_EventSourceStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -541,7 +541,7 @@ func schema_pkg_apis_eventsources_v1alpha1_EventSourceStatus(ref common.Referenc
 	}
 }
 
-func schema_pkg_apis_eventsources_v1alpha1_FileEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_eventsource_v1alpha1_FileEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -570,7 +570,7 @@ func schema_pkg_apis_eventsources_v1alpha1_FileEventSource(ref common.ReferenceC
 	}
 }
 
-func schema_pkg_apis_eventsources_v1alpha1_GithubEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_eventsource_v1alpha1_GithubEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -693,7 +693,7 @@ func schema_pkg_apis_eventsources_v1alpha1_GithubEventSource(ref common.Referenc
 	}
 }
 
-func schema_pkg_apis_eventsources_v1alpha1_GitlabEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_eventsource_v1alpha1_GitlabEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -763,7 +763,7 @@ func schema_pkg_apis_eventsources_v1alpha1_GitlabEventSource(ref common.Referenc
 	}
 }
 
-func schema_pkg_apis_eventsources_v1alpha1_HDFSEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_eventsource_v1alpha1_HDFSEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -886,7 +886,7 @@ func schema_pkg_apis_eventsources_v1alpha1_HDFSEventSource(ref common.ReferenceC
 	}
 }
 
-func schema_pkg_apis_eventsources_v1alpha1_KafkaEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_eventsource_v1alpha1_KafkaEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -929,7 +929,7 @@ func schema_pkg_apis_eventsources_v1alpha1_KafkaEventSource(ref common.Reference
 	}
 }
 
-func schema_pkg_apis_eventsources_v1alpha1_MQTTEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_eventsource_v1alpha1_MQTTEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -972,7 +972,7 @@ func schema_pkg_apis_eventsources_v1alpha1_MQTTEventSource(ref common.ReferenceC
 	}
 }
 
-func schema_pkg_apis_eventsources_v1alpha1_NATSEventsSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_eventsource_v1alpha1_NATSEventsSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1008,7 +1008,7 @@ func schema_pkg_apis_eventsources_v1alpha1_NATSEventsSource(ref common.Reference
 	}
 }
 
-func schema_pkg_apis_eventsources_v1alpha1_PubSubEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_eventsource_v1alpha1_PubSubEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1057,7 +1057,7 @@ func schema_pkg_apis_eventsources_v1alpha1_PubSubEventSource(ref common.Referenc
 	}
 }
 
-func schema_pkg_apis_eventsources_v1alpha1_ResourceEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_eventsource_v1alpha1_ResourceEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1074,7 +1074,7 @@ func schema_pkg_apis_eventsources_v1alpha1_ResourceEventSource(ref common.Refere
 					"filter": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Filter is applied on the metadata of the resource",
-							Ref:         ref("github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.ResourceFilter"),
+							Ref:         ref("github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.ResourceFilter"),
 						},
 					},
 					"group": {
@@ -1107,11 +1107,11 @@ func schema_pkg_apis_eventsources_v1alpha1_ResourceEventSource(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.ResourceFilter"},
+			"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.ResourceFilter"},
 	}
 }
 
-func schema_pkg_apis_eventsources_v1alpha1_ResourceFilter(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_eventsource_v1alpha1_ResourceFilter(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1165,7 +1165,7 @@ func schema_pkg_apis_eventsources_v1alpha1_ResourceFilter(ref common.ReferenceCa
 	}
 }
 
-func schema_pkg_apis_eventsources_v1alpha1_SNSEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_eventsource_v1alpha1_SNSEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1220,7 +1220,7 @@ func schema_pkg_apis_eventsources_v1alpha1_SNSEventSource(ref common.ReferenceCa
 	}
 }
 
-func schema_pkg_apis_eventsources_v1alpha1_SQSEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_eventsource_v1alpha1_SQSEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1276,7 +1276,7 @@ func schema_pkg_apis_eventsources_v1alpha1_SQSEventSource(ref common.ReferenceCa
 	}
 }
 
-func schema_pkg_apis_eventsources_v1alpha1_SlackEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_eventsource_v1alpha1_SlackEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1317,7 +1317,7 @@ func schema_pkg_apis_eventsources_v1alpha1_SlackEventSource(ref common.Reference
 	}
 }
 
-func schema_pkg_apis_eventsources_v1alpha1_StorageGridEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_eventsource_v1alpha1_StorageGridEventSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1352,7 +1352,7 @@ func schema_pkg_apis_eventsources_v1alpha1_StorageGridEventSource(ref common.Ref
 					"filter": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Filter on object key which caused the notification.",
-							Ref:         ref("github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.StorageGridFilter"),
+							Ref:         ref("github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.StorageGridFilter"),
 						},
 					},
 				},
@@ -1360,11 +1360,11 @@ func schema_pkg_apis_eventsources_v1alpha1_StorageGridEventSource(ref common.Ref
 			},
 		},
 		Dependencies: []string{
-			"github.com/argoproj/argo-events/gateways/server/common/webhook.Context", "github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1.StorageGridFilter"},
+			"github.com/argoproj/argo-events/gateways/server/common/webhook.Context", "github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1.StorageGridFilter"},
 	}
 }
 
-func schema_pkg_apis_eventsources_v1alpha1_StorageGridFilter(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_eventsource_v1alpha1_StorageGridFilter(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{

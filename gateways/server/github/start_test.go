@@ -24,7 +24,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1"
+	"github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1"
 	"github.com/ghodss/yaml"
 	"github.com/google/go-github/github"
 	"github.com/smartystreets/goconvey/convey"

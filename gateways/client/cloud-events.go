@@ -19,6 +19,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/sirupsen/logrus"
 	"time"
 
 	"github.com/argoproj/argo-events/common"
@@ -39,35 +40,34 @@ func (gatewayContext *GatewayContext) dispatchEvent(gatewayEvent *gateways.Event
 
 	completeSuccess := true
 
-	for _, sensor := range gatewayContext.gateway.Spec.Watchers.Sensors {
-		namespace := gatewayContext.namespace
-		if sensor.Namespace != "" {
-			namespace = sensor.Namespace
-		}
-
-		target := fmt.Sprintf("http://%s:%s%s", common.ServiceDNSName(sensor.Name, namespace), gatewayContext.gateway.Spec.EventProtocol.Http.Port, common.SensorServiceEndpoint)
-
-		t, err := cloudevents.NewHTTPTransport(
-			cloudevents.WithTarget(target),
-			cloudevents.WithEncoding(cloudevents.HTTPBinaryV02),
-		)
-		if err != nil {
-			logger.WithError(err).WithField("target", target).Warnln("failed to create a transport")
-			completeSuccess = false
+	for _, subscription := range gatewayContext.httpSubscriptions {
+		client, ok := gatewayContext.httpClients[subscription.Name]
+		if !ok {
+			logger.WithField("subscription-name", subscription.Name).Errorln("failed to send event. no http client available")
 			continue
 		}
-
-		client, err := cloudevents.NewClient(t)
-		if err != nil {
-			logger.WithError(err).WithField("target", target).Warnln("failed to create a client")
-			completeSuccess = false
-			continue
-		}
-
 		if _, _, err := client.Send(context.Background(), *cloudEvent); err != nil {
-			logger.WithError(err).WithField("target", target).Warnln("failed to send the event")
+			logger.WithError(err).WithFields(logrus.Fields{
+				"subscription-name": subscription.Name,
+				"subscription-url":  subscription.URL,
+			}).Warnln("failed to send the event")
 			completeSuccess = false
+		}
+	}
+
+	for _, subscription := range gatewayContext.natsSubscriptions {
+		client, ok := gatewayContext.natsClients[subscription.Name]
+		if !ok {
+			logger.WithField("subscription-name", subscription.Name).Errorln("failed to send event. no nats client available")
 			continue
+		}
+		if _, _, err := client.Send(context.Background(), *cloudEvent); err != nil {
+			logger.WithError(err).WithFields(logrus.Fields{
+				"subscription-name":       subscription.Name,
+				"subscription-server-url": subscription.ServerURL,
+				"subscription-subject":    subscription.Subject,
+			}).Warnln("failed to send the event")
+			completeSuccess = false
 		}
 	}
 

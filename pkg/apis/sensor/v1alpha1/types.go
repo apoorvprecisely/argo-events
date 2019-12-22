@@ -107,13 +107,29 @@ type SensorSpec struct {
 	// +optional
 	Port *int `json:"port" protobuf:"bytes,4,name=port"`
 	// Circuit is a boolean expression of dependency groups
+	// +optional
 	Circuit string `json:"circuit,omitempty" protobuf:"bytes,5,rep,name=circuit"`
 	// +listType=dependencyGroups
 	// DependencyGroups is a list of the groups of events.
+	// +optional
 	DependencyGroups []DependencyGroup `json:"dependencyGroups,omitempty" protobuf:"bytes,6,rep,name=dependencyGroups"`
 	// ErrorOnFailedRound if set to true, marks sensor state as `error` if the previous trigger round fails.
 	// Once sensor state is set to `error`, no further triggers will be processed.
+	// +optional
 	ErrorOnFailedRound bool `json:"errorOnFailedRound,omitempty" protobuf:"bytes,7,opt,name=errorOnFailedRound"`
+	// SubscriptionRef refers to the subscription resource used by the sensor to consume events from a gateway
+	// +optional
+	SubscriptionRef *Subscription `json:"subscriptionRef,omitempty" protobuf:"bytes,8,opt,name=subscriptionRef"`
+}
+
+// Subscription for the sensor to consume events from a gateway
+type Subscription struct {
+	// Name of the subscription resource
+	Name string `json:"name" protobuf:"bytes,1,name=name"`
+	// Namespace where the subscription resource is available.
+	// If not specified, the namespace where the sensor is deployed will be used.
+	// +optional
+	Namespace string `json:"namespace,omitempty" protobuf:"bytes,2,opt,name=namespace"`
 }
 
 // EventDependency describes a dependency
@@ -125,6 +141,7 @@ type EventDependency struct {
 	// EventName is the name of the event
 	EventName string `json:"eventName" protobuf:"bytes,3,name=eventName"`
 	// Filters and rules governing toleration of success and constraints on the context and data of an event
+	// +optional
 	Filters *EventDependencyFilter `json:"filters,omitempty" protobuf:"bytes,4,opt,name=filters"`
 }
 
@@ -142,11 +159,14 @@ type EventDependencyFilter struct {
 	// Name is the name of event filter
 	Name string `json:"name" protobuf:"bytes,1,name=name"`
 	// Time filter on the event with escalation
+	// +optional
 	Time *TimeFilter `json:"time,omitempty" protobuf:"bytes,2,opt,name=time"`
 	// Context filter constraints
+	// +optional
 	Context *apicommon.EventContext `json:"context,omitempty" protobuf:"bytes,3,opt,name=context"`
 	// +listType=data
 	// Data filter constraints with escalation
+	// +optional
 	Data []DataFilter `json:"data,omitempty" protobuf:"bytes,4,opt,name=data"`
 }
 
@@ -158,10 +178,12 @@ type TimeFilter struct {
 	// Start is the beginning of a time window.
 	// Before this time, events for this event are ignored and
 	// format is hh:mm:ss
+	// +optional
 	Start string `json:"start,omitempty" protobuf:"bytes,1,opt,name=start"`
 	// StopPattern is the end of a time window.
 	// After this time, events for this event are ignored and
 	// format is hh:mm:ss
+	// +optional
 	Stop string `json:"stop,omitempty" protobuf:"bytes,2,opt,name=stop"`
 }
 
@@ -201,12 +223,15 @@ type Trigger struct {
 	Template *TriggerTemplate `json:"template" protobuf:"bytes,1,name=template"`
 	// +listType=templateParameters
 	// TemplateParameters is the list of resource parameters to pass to the template object
+	// +optional
 	TemplateParameters []TriggerParameter `json:"templateParameters,omitempty" protobuf:"bytes,2,rep,name=templateParameters"`
 	// +listType=resourceParameters
 	// ResourceParameters is the list of resource parameters to pass to resolved resource object in template object
+	// +optional
 	ResourceParameters []TriggerParameter `json:"resourceParameters,omitempty" protobuf:"bytes,3,rep,name=resourceParameters"`
 	// Policy to configure backoff and execution criteria for the trigger
-	Policy *TriggerPolicy `json:"policy" protobuf:"bytes,4,opt,name=policy"`
+	// +optional
+	Policy *TriggerPolicy `json:"policy,omitempty" protobuf:"bytes,4,opt,name=policy"`
 }
 
 // TriggerTemplate is the template that describes trigger specification.
@@ -214,6 +239,7 @@ type TriggerTemplate struct {
 	// Name is a unique name of the action to take
 	Name string `json:"name" protobuf:"bytes,1,name=name"`
 	// Switch is the condition to execute the trigger
+	// +optional
 	Switch *TriggerSwitch `json:"switch,omitempty" protobuf:"bytes,2,opt,name=switch"`
 	// The unambiguous kind of this object - used in order to retrieve the appropriate kubernetes api client for this resource
 	*metav1.GroupVersionResource `json:",inline" protobuf:"bytes,3,opt,name=groupVersionResource"`
@@ -226,9 +252,11 @@ type TriggerTemplate struct {
 type TriggerSwitch struct {
 	// +listType=any
 	// Any acts as a OR operator between dependencies
+	// +optional
 	Any []string `json:"any,omitempty" protobuf:"bytes,1,rep,name=any"`
 	// +listType=all
 	// All acts as a AND operator between dependencies
+	// +optional
 	All []string `json:"all,omitempty" protobuf:"bytes,2,rep,name=all"`
 }
 
@@ -258,6 +286,7 @@ type TriggerParameter struct {
 	Dest string `json:"dest" protobuf:"bytes,2,name=dest"`
 	// Operation is what to do with the existing value at Dest, whether to
 	// 'prepend', 'overwrite', or 'append' it.
+	// +optional
 	Operation TriggerParameterOperation `json:"operation,omitempty" protobuf:"bytes,3,opt,name=operation"`
 }
 
@@ -265,15 +294,22 @@ type TriggerParameter struct {
 type TriggerParameterSource struct {
 	// Event is the name of the event for which to retrieve this event
 	Event string `json:"event" protobuf:"bytes,1,opt,name=event"`
-	// Path is the JSONPath of the event's (JSON decoded) data key
-	// Path is a series of keys separated by a dot. A key may contain wildcard characters '*' and '?'.
+	// ContextKey is the JSONPath of the event's (JSON decoded) context
+	// ContextKey is a series of keys separated by a dot. A key may contain wildcard characters '*' and '?'.
 	// To access an array value use the index as the key. The dot and wildcard characters can be escaped with '\\'.
 	// See https://github.com/tidwall/gjson#path-syntax for more information on how to use this.
+	// +optional
 	ContextKey string `json:"contextKey,omitempty" protobuf:"bytes,2,opt,name=contextKey"`
-	DataKey    string `json:"dataKey,omitempty" protobuf:"bytes,3,opt,name=dataKey"`
+	// DataKey is the JSONPath of the event's (JSON decoded) payload
+	// DataKey is a series of keys separated by a dot. A key may contain wildcard characters '*' and '?'.
+	// To access an array value use the index as the key. The dot and wildcard characters can be escaped with '\\'.
+	// See https://github.com/tidwall/gjson#path-syntax for more information on how to use this.
+	// +optional
+	DataKey string `json:"dataKey,omitempty" protobuf:"bytes,3,opt,name=dataKey"`
 	// Value is the default literal value to use for this parameter source
 	// This is only used if the path is invalid.
 	// If the path is invalid and this is not defined, this param source will produce an error.
+	// +optional
 	Value *string `json:"value,omitempty" protobuf:"bytes,3,opt,name=value"`
 }
 
@@ -320,15 +356,20 @@ type SensorStatus struct {
 	// Phase is the high-level summary of the sensor
 	Phase NodePhase `json:"phase" protobuf:"bytes,1,opt,name=phase"`
 	// StartedAt is the time at which this sensor was initiated
+	// +optional
 	StartedAt metav1.Time `json:"startedAt,omitempty" protobuf:"bytes,2,opt,name=startedAt"`
 	// CompletedAt is the time at which this sensor was completed
+	// +optional
 	CompletedAt metav1.Time `json:"completedAt,omitempty" protobuf:"bytes,3,opt,name=completedAt"`
 	// Message is a human readable string indicating details about a sensor in its phase
+	// +optional
 	Message string `json:"message,omitempty" protobuf:"bytes,4,opt,name=message"`
 	// Nodes is a mapping between a node ID and the node's status
 	// it records the states for the FSM of this sensor.
+	// +optional
 	Nodes map[string]NodeStatus `json:"nodes,omitempty" protobuf:"bytes,5,rep,name=nodes"`
 	// TriggerCycleCount is the count of sensor's trigger cycle runs.
+	// +optional
 	TriggerCycleCount int32 `json:"triggerCycleCount,omitempty" protobuf:"varint,6,opt,name=triggerCycleCount"`
 	// TriggerCycleState is the status from last cycle of triggers execution.
 	TriggerCycleStatus TriggerCycleState `json:"triggerCycleStatus" protobuf:"bytes,7,opt,name=triggerCycleStatus"`
@@ -353,30 +394,41 @@ type NodeStatus struct {
 	// Phase of the node
 	Phase NodePhase `json:"phase" protobuf:"bytes,5,opt,name=phase"`
 	// StartedAt is the time at which this node started
+	// +optional
 	StartedAt metav1.MicroTime `json:"startedAt,omitempty" protobuf:"bytes,6,opt,name=startedAt"`
 	// CompletedAt is the time at which this node completed
+	// +optional
 	CompletedAt metav1.MicroTime `json:"completedAt,omitempty" protobuf:"bytes,7,opt,name=completedAt"`
 	// store data or something to save for event notifications or trigger events
+	// +optional
 	Message string `json:"message,omitempty" protobuf:"bytes,8,opt,name=message"`
 	// Event stores the last seen event for this node
+	// +optional
 	Event *apicommon.Event `json:"event,omitempty" protobuf:"bytes,9,opt,name=event"`
 }
 
 // ArtifactLocation describes the source location for an external minio
 type ArtifactLocation struct {
 	// S3 compliant minio
+	// +optional
 	S3 *apicommon.S3Artifact `json:"s3,omitempty" protobuf:"bytes,1,opt,name=s3"`
 	// Inline minio is embedded in sensor spec as a string
+	// +optional
 	Inline *string `json:"inline,omitempty" protobuf:"bytes,2,opt,name=inline"`
 	// File minio is minio stored in a file
+	// +optional
 	File *FileArtifact `json:"file,omitempty" protobuf:"bytes,3,opt,name=file"`
 	// URL to fetch the minio from
+	// +optional
 	URL *URLArtifact `json:"url,omitempty" protobuf:"bytes,4,opt,name=url"`
 	// Configmap that stores the minio
+	// +optional
 	Configmap *ConfigmapArtifact `json:"configmap,omitempty" protobuf:"bytes,5,opt,name=configmap"`
 	// Git repository hosting the minio
+	// +optional
 	Git *GitArtifact `json:"git,omitempty" protobuf:"bytes,6,opt,name=git"`
 	// Resource is generic template for K8s resource
+	// +optional
 	Resource *unstructured.Unstructured `json:"resource,omitempty" protobuf:"bytes,7,opt,name=resource"`
 }
 
@@ -392,7 +444,7 @@ type ConfigmapArtifact struct {
 
 // FileArtifact contains information about an minio in a filesystem
 type FileArtifact struct {
-	Path string `json:"path,omitempty" protobuf:"bytes,1,opt,name=path"`
+	Path string `json:"path" protobuf:"bytes,1,name=path"`
 }
 
 // URLArtifact contains information about an minio at an http endpoint.
@@ -400,6 +452,7 @@ type URLArtifact struct {
 	// Path is the complete URL
 	Path string `json:"path" protobuf:"bytes,1,name=path"`
 	// VerifyCert decides whether the connection is secure or not
+	// +optional
 	VerifyCert bool `json:"verifyCert,omitempty" protobuf:"bytes,2,opt,name=verifyCert"`
 }
 

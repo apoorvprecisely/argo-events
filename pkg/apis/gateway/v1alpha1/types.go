@@ -78,6 +78,19 @@ type GatewaySpec struct {
 	EventProtocol *apicommon.EventProtocol `json:"eventProtocol" protobuf:"bytes,7,opt,name=eventProtocol"`
 	// Replica is the gateway deployment replicas
 	Replica int `json:"replica,omitempty" protobuf:"bytes,9,opt,name=replica"`
+	// SubscriptionRef refers to the resource containing subscriptions to send events to
+	// +optional
+	SubscriptionRef *Subscription `json:"subscriptionRef,omitempty" protobuf:"bytes,8,opt,name=subscriptionRef"`
+}
+
+// Subscription refers to the resource containing subscriptions to send events to
+type Subscription struct {
+	// Name of the subscription resource
+	Name string `json:"name" protobuf:"bytes,1,name=name"`
+	// Namespace where the subscription resource is available.
+	// If not specified, the namespace where the sensor is deployed will be used.
+	// +optional
+	Namespace string `json:"namespace,omitempty" protobuf:"bytes,2,opt,name=namespace"`
 }
 
 // EventSourceRef holds information about the EventSourceRef custom resource

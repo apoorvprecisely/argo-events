@@ -122,3 +122,8 @@ func FormattedURL(url, endpoint string) string {
 func ErrEventSourceTypeMismatch(eventSourceType string) string {
 	return fmt.Sprintf("event source is not type of %s", eventSourceType)
 }
+
+// FormatServiceURL formulates a url for a http subscription for the gateway to send events to.
+func FormatServiceURL(protocol, serviceURL, port, endpoint string) string {
+	return fmt.Sprintf("%s://%s:%s%s", protocol, serviceURL, port, endpoint)
+}

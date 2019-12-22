@@ -19,9 +19,10 @@ package main
 import (
 	"context"
 	"fmt"
+	subscriptionv1alpha1 "github.com/argoproj/argo-events/pkg/apis/subscription/v1alpha1"
 
 	"github.com/argoproj/argo-events/common"
-	eventSourceV1Alpha1 "github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1"
+	eventSourceV1Alpha1 "github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1"
 	"github.com/argoproj/argo-events/pkg/apis/gateway/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/fields"
@@ -136,6 +137,60 @@ func (gatewayContext *GatewayContext) newGatewayWatch(name string) *cache.ListWa
 		options.FieldSelector = fieldSelector.String()
 		req := x.Get().
 			Namespace(gatewayContext.namespace).
+			Resource(resource).
+			VersionedParams(&options, metav1.ParameterCodec)
+		return req.Watch()
+	}
+	return &cache.ListWatch{ListFunc: listFunc, WatchFunc: watchFunc}
+}
+
+func (gatewayContext *GatewayContext) watchSubscriptionUpdates(ctx context.Context) (cache.Controller, error) {
+	namespace := gatewayContext.namespace
+	if gatewayContext.gateway.Spec.SubscriptionRef.Namespace != "" {
+		namespace = gatewayContext.gateway.Spec.SubscriptionRef.Namespace
+	}
+	source := gatewayContext.newSubscriptionWatch(gatewayContext.gateway.Spec.SubscriptionRef.Name, namespace)
+	_, controller := cache.NewInformer(
+		source,
+		&subscriptionv1alpha1.Subscription{},
+		0,
+		cache.ResourceEventHandlerFuncs{
+			UpdateFunc: func(old, new interface{}) {
+				if g, ok := new.(*subscriptionv1alpha1.Subscription); ok {
+					gatewayContext.logger.Info("detected subscription update. updating subscriptions")
+
+				}
+			},
+			DeleteFunc: func(obj interface{}) {
+				gatewayContext.httpSubscriptions = nil
+				gatewayContext.natsSubscriptions = nil
+				gatewayContext.httpClients = nil
+				gatewayContext.natsClients = nil
+			},
+		})
+
+	go controller.Run(ctx.Done())
+	return controller, nil
+}
+
+func (gatewayContext *GatewayContext) newSubscriptionWatch(name, namespace string) *cache.ListWatch {
+	client := gatewayContext.subscriptionClient.ArgoprojV1alpha1().RESTClient()
+	resource := "subscriptions"
+	fieldSelector := fields.ParseSelectorOrDie(fmt.Sprintf("metadata.name=%s", name))
+
+	listFunc := func(options metav1.ListOptions) (runtime.Object, error) {
+		options.FieldSelector = fieldSelector.String()
+		req := client.Get().
+			Namespace(namespace).
+			Resource(resource).
+			VersionedParams(&options, metav1.ParameterCodec)
+		return req.Do().Get()
+	}
+	watchFunc := func(options metav1.ListOptions) (watch.Interface, error) {
+		options.Watch = true
+		options.FieldSelector = fieldSelector.String()
+		req := client.Get().
+			Namespace(namespace).
 			Resource(resource).
 			VersionedParams(&options, metav1.ParameterCodec)
 		return req.Watch()

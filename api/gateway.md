@@ -1446,6 +1446,6 @@ Namespace of the sensor
 <p>
 
 <em> Generated with <code>gen-crd-api-reference-docs</code> on git
-commit <code>c580a25</code>. </em>
+commit <code>2bdb384</code>. </em>
 
 </p>

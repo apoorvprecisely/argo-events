@@ -18,7 +18,7 @@ limitations under the License.
 package v1alpha1
 
 import (
-	v1alpha1 "github.com/argoproj/argo-events/pkg/apis/eventsources/v1alpha1"
+	v1alpha1 "github.com/argoproj/argo-events/pkg/apis/eventsource/v1alpha1"
 	"github.com/argoproj/argo-events/pkg/client/eventsources/clientset/versioned/scheme"
 	rest "k8s.io/client-go/rest"
 )

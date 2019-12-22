@@ -14,15 +14,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package eventsources
+package subscription
 
 const (
 	// Group is the API Group
-	Group string = "argoproj.io"
+	Group = "argoproj.io"
 
-	// EventSource constants
-	Kind     string = "EventSource"
-	Singular string = "eventsource"
-	Plural   string = "eventsources"
-	FullName string = Plural + "." + Group
+	// Subscription constants
+	Kind     = "Subscription"
+	Singular = "subscription"
+	Plural   = "subscriptions"
+	FullName = Plural + "." + Group
 )

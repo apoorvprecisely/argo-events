@@ -70,6 +70,15 @@ const (
 	TriggerCycleFailure TriggerCycleState = "Failure" // one or more triggers failed
 )
 
+// EventProtocolType is type of the protocol used for consuming events
+type EventProtocolType string
+
+// possible types of event protocols
+const (
+	HTTP EventProtocolType = "HTTP"
+	NATS EventProtocolType = "NATS"
+)
+
 // Sensor is the definition of a sensor resource
 // +genclient
 // +genclient:noStatus
@@ -102,7 +111,7 @@ type SensorSpec struct {
 	// Template contains sensor pod specification. For more information, read https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.11/#pod-v1-core
 	Template *corev1.PodTemplateSpec `json:"template" protobuf:"bytes,3,name=template"`
 	// EventProtocol is the protocol through which sensor receives events from gateway
-	EventProtocol *apicommon.EventProtocol `json:"eventProtocol" protobuf:"bytes,4,name=eventProtocol"`
+	EventProtocol *EventProtocol `json:"eventProtocol" protobuf:"bytes,4,name=eventProtocol"`
 	// Port on which sensor server should run.
 	// +optional
 	Port *int `json:"port" protobuf:"bytes,4,name=port"`
@@ -117,9 +126,48 @@ type SensorSpec struct {
 	// Once sensor state is set to `error`, no further triggers will be processed.
 	// +optional
 	ErrorOnFailedRound bool `json:"errorOnFailedRound,omitempty" protobuf:"bytes,7,opt,name=errorOnFailedRound"`
+}
+
+// EventProtocol describes the type of subscription protocol
+type EventProtocol struct {
+	// Type of the protocol
+	Type EventProtocolType `json:"type" protobuf:"bytes,1,name=type"`
+	// HTTP protocol
+	// +optional
+	HTTP *HTTPProtocol `json:"http,omitempty" protobuf:"bytes,2,opt,name=http"`
+	// NATS protocol
+	// +optional
+	NATS *NATSProtocol `json:"nats,omitempty" protobuf:"bytes,3,opt,name=nats"`
+}
+
+// Http contains the information required to setup a http server and listen to incoming events
+type HTTPProtocol struct {
+	// Port on which server will run
+	// +optional
+	Port string `json:"port,omitempty" protobuf:"bytes,1,opt,name=port"`
+	// Endpoint to listen events at
+	// +optional
+	Endpoint string `json:"endpoint,omitempty" protobuf:"bytes,2,opt,name=endpoint"`
 	// SubscriptionRef refers to the subscription resource used by the sensor to consume events from a gateway
 	// +optional
-	SubscriptionRef *Subscription `json:"subscriptionRef,omitempty" protobuf:"bytes,8,opt,name=subscriptionRef"`
+	Subscriptions []Subscription `json:"subscriptions,omitempty" protobuf:"bytes,3,opt,name=subscriptions"`
+}
+
+// Nats contains the information required to connect to nats server
+type NATSProtocol struct {
+	// ServerURL is nats server/service URL
+	ServerURL string `json:"serverURL" protobuf:"bytes,1,name=serverURL"`
+	// NATS subject name
+	Subject string `json:"subject" protobuf:"bytes,2,name=subject"`
+	// SubscriptionRef refers to the subscription resource used by the sensor to consume events from a gateway
+	// +optional
+	SubscriptionRef []Subscription `json:"subscriptionRef,omitempty" protobuf:"bytes,3,opt,name=subscriptionRef"`
+}
+
+type AMQPProtocol struct {
+	// ServerURL is the server URL
+	ServerURL string `json:"serverURL" protobuf:"bytes,1,name=serverURL"`
+	Queue string `json:"queue"` protobuf:"bytes,2,name="
 }
 
 // Subscription for the sensor to consume events from a gateway

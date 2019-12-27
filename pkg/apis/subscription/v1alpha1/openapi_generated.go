@@ -124,12 +124,22 @@ func schema_pkg_apis_subscription_v1alpha1_Subscription(ref common.ReferenceCall
 							Format:      "",
 						},
 					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/argoproj/argo-events/pkg/apis/subscription/v1alpha1.SubscriptionSpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/argoproj/argo-events/pkg/apis/subscription/v1alpha1.SubscriptionStatus"),
+						},
+					},
 				},
-				Required: []string{"metadata"},
+				Required: []string{"metadata", "spec", "status"},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/argoproj/argo-events/pkg/apis/subscription/v1alpha1.SubscriptionSpec", "github.com/argoproj/argo-events/pkg/apis/subscription/v1alpha1.SubscriptionStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 

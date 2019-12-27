@@ -24,7 +24,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func (gatewayContext *GatewayContext) updateSubscriptions(subscription subscriptionv1alpha1.Subscription) {
+func (gatewayContext *GatewayContext) updateSubscriptions(subscription *subscriptionv1alpha1.Subscription) {
 	gatewayContext.httpSubscriptions = subscription.Spec.HTTP
 	gatewayContext.natsSubscriptions = subscription.Spec.NATS
 	if gatewayContext.httpClients == nil {

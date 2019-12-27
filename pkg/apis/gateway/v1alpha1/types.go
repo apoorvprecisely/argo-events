@@ -74,8 +74,6 @@ type GatewaySpec struct {
 	Watchers *NotificationWatchers `json:"watchers,omitempty" protobuf:"bytes,5,opt,name=watchers"`
 	// Port on which the gateway event source processor is running on.
 	ProcessorPort string `json:"processorPort" protobuf:"bytes,6,opt,name=processorPort"`
-	// EventProtocol is the underlying protocol used to send events from gateway to watchers(components interested in listening to event from this gateway)
-	EventProtocol *apicommon.EventProtocol `json:"eventProtocol" protobuf:"bytes,7,opt,name=eventProtocol"`
 	// Replica is the gateway deployment replicas
 	Replica int `json:"replica,omitempty" protobuf:"bytes,9,opt,name=replica"`
 	// SubscriptionRef refers to the resource containing subscriptions to send events to

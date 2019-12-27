@@ -38,6 +38,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"github.com/argoproj/argo-events/pkg/apis/gateway/v1alpha1.NodeStatus":                 schema_pkg_apis_gateway_v1alpha1_NodeStatus(ref),
 		"github.com/argoproj/argo-events/pkg/apis/gateway/v1alpha1.NotificationWatchers":       schema_pkg_apis_gateway_v1alpha1_NotificationWatchers(ref),
 		"github.com/argoproj/argo-events/pkg/apis/gateway/v1alpha1.SensorNotificationWatcher":  schema_pkg_apis_gateway_v1alpha1_SensorNotificationWatcher(ref),
+		"github.com/argoproj/argo-events/pkg/apis/gateway/v1alpha1.Subscription":               schema_pkg_apis_gateway_v1alpha1_Subscription(ref),
 	}
 }
 
@@ -281,12 +282,6 @@ func schema_pkg_apis_gateway_v1alpha1_GatewaySpec(ref common.ReferenceCallback) 
 							Format:      "",
 						},
 					},
-					"eventProtocol": {
-						SchemaProps: spec.SchemaProps{
-							Description: "EventProtocol is the underlying protocol used to send events from gateway to watchers(components interested in listening to event from this gateway)",
-							Ref:         ref("github.com/argoproj/argo-events/pkg/apis/common.EventProtocol"),
-						},
-					},
 					"replica": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Replica is the gateway deployment replicas",
@@ -294,12 +289,18 @@ func schema_pkg_apis_gateway_v1alpha1_GatewaySpec(ref common.ReferenceCallback) 
 							Format:      "int32",
 						},
 					},
+					"subscriptionRef": {
+						SchemaProps: spec.SchemaProps{
+							Description: "SubscriptionRef refers to the resource containing subscriptions to send events to",
+							Ref:         ref("github.com/argoproj/argo-events/pkg/apis/gateway/v1alpha1.Subscription"),
+						},
+					},
 				},
-				Required: []string{"template", "type", "processorPort", "eventProtocol"},
+				Required: []string{"template", "type", "processorPort"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/argoproj/argo-events/pkg/apis/common.EventProtocol", "github.com/argoproj/argo-events/pkg/apis/gateway/v1alpha1.EventSourceRef", "github.com/argoproj/argo-events/pkg/apis/gateway/v1alpha1.NotificationWatchers", "k8s.io/api/core/v1.PodTemplateSpec", "k8s.io/api/core/v1.Service"},
+			"github.com/argoproj/argo-events/pkg/apis/gateway/v1alpha1.EventSourceRef", "github.com/argoproj/argo-events/pkg/apis/gateway/v1alpha1.NotificationWatchers", "github.com/argoproj/argo-events/pkg/apis/gateway/v1alpha1.Subscription", "k8s.io/api/core/v1.PodTemplateSpec", "k8s.io/api/core/v1.Service"},
 	}
 }
 
@@ -484,6 +485,34 @@ func schema_pkg_apis_gateway_v1alpha1_SensorNotificationWatcher(ref common.Refer
 					"namespace": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Namespace of the sensor",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_gateway_v1alpha1_Subscription(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "Subscription refers to the resource containing subscriptions to send events to",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name of the subscription resource",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"namespace": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Namespace where the subscription resource is available. If not specified, the namespace where the sensor is deployed will be used.",
 							Type:        []string{"string"},
 							Format:      "",
 						},

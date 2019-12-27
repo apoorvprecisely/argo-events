@@ -20,7 +20,6 @@ limitations under the License.
 package v1alpha1
 
 import (
-	common "github.com/argoproj/argo-events/pkg/apis/common"
 	corev1 "k8s.io/api/core/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
@@ -167,11 +166,6 @@ func (in *GatewaySpec) DeepCopyInto(out *GatewaySpec) {
 		in, out := &in.Watchers, &out.Watchers
 		*out = new(NotificationWatchers)
 		(*in).DeepCopyInto(*out)
-	}
-	if in.EventProtocol != nil {
-		in, out := &in.EventProtocol, &out.EventProtocol
-		*out = new(common.EventProtocol)
-		**out = **in
 	}
 	if in.SubscriptionRef != nil {
 		in, out := &in.SubscriptionRef, &out.SubscriptionRef

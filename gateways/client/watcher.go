@@ -158,7 +158,7 @@ func (gatewayContext *GatewayContext) watchSubscriptionUpdates(ctx context.Conte
 			UpdateFunc: func(old, new interface{}) {
 				if g, ok := new.(*subscriptionv1alpha1.Subscription); ok {
 					gatewayContext.logger.Info("detected subscription update. updating subscriptions")
-
+					gatewayContext.updateSubscriptions(new.(*subscriptionv1alpha1.Subscription))
 				}
 			},
 			DeleteFunc: func(obj interface{}) {
